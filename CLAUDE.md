@@ -63,6 +63,37 @@ For detailed command references, see:
 - `docs/workflows.md` - Common workflow examples
 - `docs/dashboards-and-filters.md` - REST API for dashboards and filters
 
+### Scripts
+
+**team_analysis.sh** - Team performance analysis:
+```bash
+# Basic report (uses 1-hour cache)
+./scripts/team_analysis.sh
+
+# With weekly breakdown and cycle time (slower first run)
+./scripts/team_analysis.sh --detailed
+
+# Force fresh data from API
+./scripts/team_analysis.sh --refresh
+
+# All options
+./scripts/team_analysis.sh --project PROJQUAY --days 90 --detailed --refresh --output report.md
+```
+
+**Key constraints:**
+- Requires `team_members.txt` in project root (gitignored, contains team email addresses)
+- Cache stored in `.cache/` directory (1-hour expiry)
+- Tab normalization applied to handle jira-cli column padding
+- Uses POSIX-compatible commands (works on macOS Bash 3.x)
+
+**Output sections:**
+1. Velocity by Team Member - Resolved count and % of team
+2. Priority Distribution - Blocker/Critical/Major/Normal/Minor per member
+3. Issue Type Breakdown - Bug/Story/Task/Epic per member
+4. Weekly Velocity (--detailed) - Last 12 weeks per member
+5. Cycle Time (--detailed) - Avg/Median/Min/Max days created→resolved
+6. Team Priority Summary - Overall priority distribution
+
 ### Plans
 
 Implementation plans for Jira automation:

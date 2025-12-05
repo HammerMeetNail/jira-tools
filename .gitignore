@@ -1,0 +1,15 @@
+# Team member list (contains emails)
+team_members.txt
+
+# Generated reports
+*.md
+!CLAUDE.md
+!README.md
+!docs/*.md
+!plans/*.md
+
+# Temp files
+*.tmp
+
+# Cache directory
+.cache/
